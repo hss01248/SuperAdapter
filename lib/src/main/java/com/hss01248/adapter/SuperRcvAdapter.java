@@ -1,12 +1,13 @@
-package com.hss01248.lib;
+package com.hss01248.adapter;
 
 import android.app.Activity;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +30,10 @@ public  abstract   class SuperRcvAdapter extends RecyclerView.Adapter<SuperRcvHo
 
 
 
-    public SuperRcvAdapter(@NonNull List datas, Activity context){
+    public SuperRcvAdapter(@Nullable List datas, Activity context){
+        if (datas == null){
+            datas = new ArrayList();
+        }
         this.datas = datas;
         this.context = context;
 

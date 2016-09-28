@@ -1,11 +1,12 @@
-package com.hss01248.lib;
+package com.hss01248.adapter;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +27,9 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
     }
 
 
-    public SuperLvAdapter(@NonNull List datas, Activity context){
+    public SuperLvAdapter(@Nullable List datas, Activity context){
         if (datas == null){
-            throw new RuntimeException("datas cannot be null");
+            datas = new ArrayList();
         }
         this.datas = datas;
         this.context = context;

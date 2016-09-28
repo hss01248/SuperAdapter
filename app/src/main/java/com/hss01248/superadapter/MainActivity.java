@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hss01248.lib.SuperRcvHolder;
-import com.hss01248.lib.SuperRcvAdapter;
+import com.hss01248.adapter.SuperRcvHolder;
+import com.hss01248.adapter.SuperRcvAdapter;
 
 import java.util.ArrayList;
 

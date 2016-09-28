@@ -1,4 +1,4 @@
-package com.hss01248.lib;
+package com.hss01248.adapter;
 
 import org.junit.Test;
 

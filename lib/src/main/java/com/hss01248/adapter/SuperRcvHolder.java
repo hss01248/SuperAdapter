@@ -1,4 +1,4 @@
-package com.hss01248.lib;
+package com.hss01248.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
