@@ -1,7 +1,6 @@
 package com.hss01248.adapter;
 
 import android.app.Activity;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,11 +26,8 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
     }
 
 
-    public SuperLvAdapter(@Nullable List datas, Activity context){
-        if (datas == null){
-            datas = new ArrayList();
-        }
-        this.datas = datas;
+    public SuperLvAdapter(Activity context){
+        this.datas = new ArrayList();
         this.context = context;
     }
     @Override
