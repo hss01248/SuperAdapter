@@ -29,6 +29,8 @@ Step 2. Add the dependency
 
 > listview,recycleview的数据与界面达到完全的一一对应,如果服务器返回的数据不对应,那么重新组合,如果有一个item无需数据,那么在datas里插入null或无意义的数据,holder多一种类型来处理即可.
 
+数据引用由内部维护,无需外部传入.
+
 ## SuperLvAdapter: 
 
 单一类型item时，使用匿名实现类即可，多种类型时，重写getItemViewTypeCount和getItemViewType(position) 即可,无需更改getview内部的逻辑.
@@ -51,9 +53,7 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 ### adapter:(这里示例代码是只有一种itemtype的情况)
 
       ListView listView = new ListView(this);
-        ArrayList<String> datas = new ArrayList<>();
-    
-        SuperLvAdapter adapter = new SuperLvAdapter(datas, this) {
+      SuperLvAdapter adapter = new SuperLvAdapter(this) {
             @Override
             protected SuperLvHolder generateNewHolder(Activity context,int viewType) {
                 return new CustomHolder(context);
