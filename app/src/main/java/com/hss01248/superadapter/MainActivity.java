@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
 
-        mAdapter = new SuperRcvAdapter(datas, mActivity) {
+        mAdapter = new SuperRcvAdapter( mActivity) {
 
             public static final int TYPE_0 = 0;
             public static final int TYPE_1 = 1;
