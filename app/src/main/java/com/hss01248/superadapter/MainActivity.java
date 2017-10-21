@@ -12,7 +12,8 @@ import com.hss01248.adapter.SuperRcvAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
+
 
 public class MainActivity extends Activity {
 
@@ -118,7 +119,7 @@ public class MainActivity extends Activity {
 
     class CustomHolder extends SuperRcvHolder<String> {
 
-        @Bind(R.id.tv_text)
+        @BindView(R.id.tv_text)
         TextView mTvText;
 
         public CustomHolder(View itemView) {
@@ -135,7 +136,7 @@ public class MainActivity extends Activity {
     public static class CustomHolder2 extends SuperRcvHolder<String> {
 
 
-        @Bind(R.id.tv_text)
+        @BindView(R.id.tv_text)
         TextView mTvText;
 
         public CustomHolder2(View itemView) {

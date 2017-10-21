@@ -37,6 +37,8 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
         return datas.size();
     }
 
+    public abstract void onItemClicked(int position,Object bean);
+
 
 
     @Override
