@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
  */
 public abstract class SuperLvHolder<T> {
     public View rootView;
+    public int type;
 
     /*public SuperLvHolder(){
 
@@ -21,6 +22,11 @@ public abstract class SuperLvHolder<T> {
     public SuperLvHolder(Activity context){
         rootView = View.inflate(context,setLayoutRes(),null);
         ButterKnife.bind(this,rootView);
+    }
+
+    public SuperLvHolder setType(int type){
+        this.type = type;
+        return this;
     }
 
     protected abstract  @LayoutRes  int setLayoutRes();

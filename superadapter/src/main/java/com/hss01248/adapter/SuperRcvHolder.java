@@ -15,10 +15,17 @@ public abstract  class SuperRcvHolder<T> extends RecyclerView.ViewHolder {
 
     public  View rootView;
 
+    public int type;
+
     public SuperRcvHolder(View itemView) {
         super(itemView);
         rootView = itemView;
         ButterKnife.bind(this,rootView);
+    }
+
+    public SuperRcvHolder setType(int type){
+        this.type = type;
+        return this;
     }
 
     /**

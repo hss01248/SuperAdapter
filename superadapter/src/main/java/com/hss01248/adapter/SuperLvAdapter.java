@@ -37,7 +37,7 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
         return datas.size();
     }
 
-    public abstract void onItemClicked(int position,Object bean);
+
 
 
 
@@ -65,6 +65,11 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
             convertView.setTag(holder);
         }else {
             holder = (SuperLvHolder) convertView.getTag();
+            if(!(holder.type == getItemViewType(position))){
+                holder = generateNewHolder(context,getItemViewType(position));
+                convertView = holder.rootView;
+                convertView.setTag(holder);
+            }
         }
         holder.assingDatasAndEvents(context,datas.get(position),position,position == getCount() -1,isListViewFling,datas,this);
         return convertView;
@@ -126,6 +131,7 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
             datas.add(object);
             notifyDataSetChanged();
         }catch (Exception e){
+            e.printStackTrace();
 
         }
     }

@@ -57,8 +57,8 @@ public class MainActivity extends Activity {
 
         mAdapter = new SuperRcvAdapter( mActivity) {
 
-            public static final int TYPE_0 = 0;
-            public static final int TYPE_1 = 1;
+            public static final int TYPE_0 = 1;
+            public static final int TYPE_1 = 2;
 
             @Override
             protected SuperRcvHolder generateCoustomViewHolder(int viewType) {
@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
 
             @Override
             public int getItemViewType(int position) {
-                if (position % 2 == 0) {//偶数位
+                if (position  == datas.size()-1) {//偶数位
                     return TYPE_0;
                 } else {//奇数位
                     return TYPE_1;
