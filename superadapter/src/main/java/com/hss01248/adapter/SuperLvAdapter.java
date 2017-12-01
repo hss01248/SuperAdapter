@@ -59,23 +59,28 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         SuperLvHolder holder = null;
+        View retrunView = convertView;
         if (convertView == null){
             holder = generateNewHolder(context,getItemViewType(position));
-            convertView = holder.rootView;
-            convertView.setTag(holder);
+            retrunView = holder.rootView;
+            retrunView.setTag(holder);
         }else {
-            holder = (SuperLvHolder) convertView.getTag();
+            holder = (SuperLvHolder) retrunView.getTag();
             if(!(holder.type == getItemViewType(position))){
                 holder = generateNewHolder(context,getItemViewType(position));
-                convertView = holder.rootView;
-                convertView.setTag(holder);
+                retrunView = holder.rootView;
+                retrunView.setTag(holder);
             }
         }
         holder.assingDatasAndEvents(context,datas.get(position),position,position == getCount() -1,isListViewFling,datas,this);
-        return convertView;
+        return retrunView;
     }
 
     protected abstract SuperLvHolder generateNewHolder(Activity context, int itemViewType);
+
+    public void refresh(){
+        notifyDataSetChanged();
+    }
     @Override
     public void refresh(List newData){
         if (newData == null){

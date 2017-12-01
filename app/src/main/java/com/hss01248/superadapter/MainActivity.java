@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hss01248.adapter.SuperRcvHolder;
 import com.hss01248.adapter.SuperRcvAdapter;
+import com.hss01248.adapter.SuperRcvHolder;
 
 import java.util.ArrayList;
 
@@ -29,6 +29,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mActivity = this;
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.lv);
         datas = new ArrayList<>();
 
