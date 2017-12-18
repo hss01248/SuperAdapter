@@ -22,8 +22,20 @@ public abstract class SuperLvHolder<T,A extends Activity> {
 
     public SuperLvHolder(A context){
         this.activity = context;
-        rootView = View.inflate(context,setLayoutRes(),null);
+        int layoutRes = setLayoutRes();
+        if(layoutRes !=0){
+            rootView =  View.inflate(context,setLayoutRes(),null);
+        }else {
+            rootView = setRootView(context);
+            if(rootView ==null){
+                throw new RuntimeException("setRootView is null !");
+            }
+        }
         ButterKnife.bind(this,rootView);
+    }
+
+    private View setRootView(A context) {
+        return null;
     }
 
     public SuperLvHolder setType(int type){

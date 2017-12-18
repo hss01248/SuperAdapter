@@ -3,6 +3,7 @@ package com.hss01248.adapter;
 import android.app.Activity;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -43,17 +44,19 @@ public  abstract   class SuperRvAdapter<A extends Activity> extends RecyclerView
      * @param layoutRes
      * @return
      */
-    public  View inflate(@LayoutRes int layoutRes){
-        return View.inflate(context, layoutRes,null);
+    public  View inflate(ViewGroup parent,@LayoutRes int layoutRes){
+       return LayoutInflater.from(context).inflate(layoutRes,parent,false);
+       //上面的api才能应用到layout文件中的固定宽高
+        //return View.inflate(context, layoutRes,null);
     }
 
 
     @Override
     public SuperRvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return generateCoustomViewHolder(viewType);
+        return generateCoustomViewHolder(parent,viewType);
     }
 
-    protected abstract SuperRvHolder generateCoustomViewHolder(int viewType);
+    protected abstract SuperRvHolder generateCoustomViewHolder(ViewGroup parent, int viewType);
 
     @Override
     public void onBindViewHolder(SuperRvHolder holder, int position) {

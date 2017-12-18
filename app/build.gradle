@@ -26,4 +26,7 @@ dependencies {
     compile project(path: ':superadapter')
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    compile 'com.github.hss01248:ListViewLinearLayout:1.0.0'
+
+    //compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
 }

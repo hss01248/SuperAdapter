@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hss01248.adapter.SuperRvAdapter;
@@ -61,9 +62,9 @@ public class MainActivity extends Activity {
         mAdapter = new SuperRvAdapter<MainActivity>( MainActivity.this) {
 
             @Override
-            protected SuperRvHolder generateCoustomViewHolder(int viewType) {
+            protected SuperRvHolder generateCoustomViewHolder(ViewGroup parent, int viewType) {
                 if(viewType == String.class.hashCode()){
-                    return new SuperRvHolder<String,MainActivity>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
+                    return new SuperRvHolder<String,MainActivity>(inflate(parent,R.layout.holder_demo_list_2)) {//匿名子类
                         @Override
                         public void assignDatasAndEvents(MainActivity context, String data) {
                             super.assignDatasAndEvents(context, data);
@@ -73,13 +74,13 @@ public class MainActivity extends Activity {
                 }
 
                 if(viewType == Bean1.class.hashCode()){
-                    return new CustomHolder(inflate(R.layout.holder_demo_list));
+                    return new CustomHolder(inflate(parent,R.layout.holder_demo_list));
                 }
 
                 if(viewType == Bean2.class.hashCode()){
-                    return new CustomHolder2(inflate(R.layout.holder_demo_list));
+                    return new CustomHolder2(inflate(parent,R.layout.holder_demo_list));
                 }
-                return new CustomHolder(inflate(R.layout.holder_demo_list));
+                return new CustomHolder(inflate(parent,R.layout.holder_demo_list));
 
             }
         };
