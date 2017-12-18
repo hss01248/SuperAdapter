@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.hss01248:SuperAdapter:2.0.0'
+	        compile 'com.github.hss01248:SuperAdapter:2.0.1'
 	}
 
 # 使用
@@ -122,7 +122,7 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 
 
     mAdapter = new SuperRvAdapter<MainActivity>( MainActivity.this) {
-    
+
                 @Override
                 protected SuperRvHolder generateCoustomViewHolder(int viewType) {
                     if(viewType == String.class.hashCode()){
@@ -156,21 +156,21 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 
 
      class CustomHolder extends SuperRvHolder<Bean1,MainActivity> {
-    
+
             @BindView(R.id.tv_text)
             TextView mTvText;
     
             public CustomHolder(View itemView) {
                 super(itemView);
             }
-    
-    
+
+
             @Override
             public void assignDatasAndEvents(MainActivity context, Bean1 data) {
                 mTvText.setText(data.toString()+"  bean1 type");
             }
         }
-    
+
 
 
 
