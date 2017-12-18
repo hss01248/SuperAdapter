@@ -1,5 +1,6 @@
 package com.hss01248.superadapter;
 
+import android.app.Activity;
 import android.widget.TextView;
 
 import com.hss01248.adapter.SuperLvHolder;
@@ -10,11 +11,11 @@ import butterknife.BindView;
  * Created by huangshuisheng on 2017/11/15.
  */
 
-public class Holder1 extends SuperLvHolder<Bean1,ListActivity> {
+public class Holder1 extends SuperLvHolder<Bean1,Activity> {
     @BindView(R.id.tv_text)
     TextView tvText;
 
-    public Holder1(ListActivity context) {
+    public Holder1(Activity context) {
         super(context);
     }
 
@@ -24,8 +25,7 @@ public class Holder1 extends SuperLvHolder<Bean1,ListActivity> {
     }
 
     @Override
-    public void assingDatasAndEvents(ListActivity context, Bean1 bean) {
+    public void assingDatasAndEvents(Activity context, Bean1 bean) {
         tvText.setText(bean.toString());
-
     }
 }

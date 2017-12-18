@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.hss01248:SuperAdapter:1.0.4'
+	        compile 'com.github.hss01248:SuperAdapter:2.0.0'
 	}
 
 # 使用
@@ -33,7 +33,25 @@ Step 2. Add the dependency
 
 ## SuperLvAdapter: 
 
-单一类型item时，使用匿名实现类即可，多种类型时，重写getItemViewTypeCount和getItemViewType(position) 即可,无需更改getview内部的逻辑.
+* 单一类型item时，使用匿名实现类即可，
+
+* 多种类型时，依据数据集datas内部javabean的类型来做判断,无需重写getItemViewTypeCount和getItemViewType(position) ,只要在generateNewHolder里进行类型判断即可,示例代码如下;
+
+  ```
+  SuperLvAdapter adapter = new SuperLvAdapter<ListActivity>(this) {
+              @Override
+              protected SuperLvHolder generateNewHolder(ListActivity context, int itemViewType) {
+                  if(itemViewType == Bean1.class.hashCode()){
+                      return new Holder1(context);
+                  }else if(itemViewType == Bean2.class.hashCode()){
+                      return new Holder2(context);
+                  }
+                  return null;
+              }
+          }
+  ```
+
+  ​
 
 ## SuperLvHolder:
 
@@ -41,7 +59,7 @@ Step 2. Add the dependency
 
 如果该holder在多个地方使用,那么可以作为单独的类,达到复用的目的.
 
-## SuperRcvAdapter和SuperRcvHolder
+## SuperRvAdapter和SuperRvHolder
 
 adapter一般情况下都使用匿名子类.多个item时分别指定类型和对应的hoder即可.
 holder一般也使用匿名子类.如果在其他页面需要复用,那么可以写成单独的子类.其layout文件需要在构造函数前传入,已封装好方法.
@@ -53,13 +71,18 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 ### adapter:(这里示例代码是只有一种itemtype的情况)
 
       ListView listView = new ListView(this);
-      SuperLvAdapter adapter = new SuperLvAdapter(this) {
-            @Override
-            protected SuperLvHolder generateNewHolder(Activity context,int viewType) {
-                return new CustomHolder(context);
-            }
-        };
-    
+     SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
+                @Override
+                protected SuperLvHolder generateNewHolder(Activity context, int itemViewType) {
+                    if(itemViewType == Bean1.class.hashCode()){
+                        return new Holder1(context);
+                    }else if(itemViewType == Bean2.class.hashCode()){
+                        return new Holder2(context);
+                    }
+                    return null;
+                }
+            };
+     	adapter.addAll(datas);
         listView.setAdapter(adapter);
 
 
@@ -68,24 +91,26 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 ​        
 ### viewholder的实现:
 
-      class CustomHolder extends SuperLvHolder<String> {
 
-            @Bind(R.id.tv_text)
-            TextView mTvText;
+
+
+    public class Holder1 extends SuperLvHolder<Bean1,Activity> {
+        @BindView(R.id.tv_text)
+        TextView tvText;
     
-            public CustomHolder(Activity context) {
-                super(context);
-            }
+        public Holder1(Activity context) {
+            super(context);
+        }
     
-            @Override
-            protected int setLayoutRes() {
-                return R.layout.holder_demo_list;
-            }
+        @Override
+        protected int setLayoutRes() {
+            return R.layout.holder_demo_list;
+        }
     
-            @Override
-            public void assingDatasAndEvents(Activity context, String bean) {
-                mTvText.setText(bean);
-            }
+        @Override
+        public void assingDatasAndEvents(Activity context, Bean1 bean) {
+            tvText.setText(bean.toString());
+        }
     }
 
 
@@ -93,91 +118,97 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 
 ### SuperRcvAdapter,多种类型下的使用
 
-     mAdapter = new SuperRcvAdapter(datas, mActivity) {
 
-            public static final int TYPE_0 = 0;
-            public static final int TYPE_1 = 1;
+
+
+    mAdapter = new SuperRvAdapter<MainActivity>( MainActivity.this) {
     
-            @Override
-            protected SuperRcvHolder generateCoustomViewHolder(int viewType) {
-    
-                switch (viewType) {
-                    case TYPE_0:
-                        return new CustomHolder(inflate(R.layout.holder_demo_list));
-                    case TYPE_1:
-                        return new CustomHolder2(inflate(R.layout.holder_demo_list_2));
-                    default:
-                        return new SuperRcvHolder<String>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
-                            private TextView tv_text;
-    
+                @Override
+                protected SuperRvHolder generateCoustomViewHolder(int viewType) {
+                    if(viewType == String.class.hashCode()){
+                        return new SuperRvHolder<String,MainActivity>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
                             @Override
-                            public void assignDatasAndEvents(Activity context, String data) {
+                            public void assignDatasAndEvents(MainActivity context, String data) {
                                 super.assignDatasAndEvents(context, data);
-                                tv_text.setText(data);
+                                ((TextView)(rootView.findViewById(R.id.tv_text))).setText(data+" string type");
                             }
                         };
-                }
+                    }
     
-            }
+                    if(viewType == Bean1.class.hashCode()){
+                        return new CustomHolder(inflate(R.layout.holder_demo_list));
+                    }
+    
+                    if(viewType == Bean2.class.hashCode()){
+                        return new CustomHolder2(inflate(R.layout.holder_demo_list));
+                    }
+                    return new CustomHolder(inflate(R.layout.holder_demo_list));
+    
+                }
+            };
 
 
-            @Override
-            public int getItemViewType(int position) {
-                if (position % 2 == 0) {//偶数位
-                    return TYPE_0;
-                } else {//奇数位
-                    return TYPE_1;
-                }
-    
-            }
-        };
-    
-        mRecyclerView.setAdapter(mAdapter);
 
 
 ### holder的实现:
 
-    class CustomHolder extends SuperRcvHolder<String> {
-
-        @Bind(R.id.tv_text)
-        TextView mTvText;
-    
-        public CustomHolder(View itemView) {
-            super(itemView);
-        }
 
 
-        @Override
-        public void assignDatasAndEvents(Activity context, String data) {
-            mTvText.setText(data);
-        }
-        //备用
-        @Override
-        public void assignDatasAndEvents(Activity context, String data, int position, boolean isLast, 
-                                         boolean isListViewFling, List datas, SuperRcvAdapter superRecyAdapter) {
-            super.assignDatasAndEvents(context, data, position, isLast, isListViewFling, datas, superRecyAdapter);
+
+     class CustomHolder extends SuperRvHolder<Bean1,MainActivity> {
+    
+            @BindView(R.id.tv_text)
+            TextView mTvText;
+    
+            public CustomHolder(View itemView) {
+                super(itemView);
+            }
+    
+    
+            @Override
+            public void assignDatasAndEvents(MainActivity context, Bean1 data) {
+                mTvText.setText(data.toString()+"  bean1 type");
+            }
         }
     
-    }
-    
- # 额外福利:BaseViewHolder
+
+
+
+ # 额外福利:CommonViewHolder
  通用性viewholder,非典型的MVVM的实现:
- 
+
  ```
- public abstract class BaseViewHolder<A extends Activity,D> {
+public abstract class CommonViewHolder<T,A extends Activity> {
 
-    A activity;
     public View rootView;
+    public A activity;
 
-    public BaseViewHolder(A activity){
-        rootView = View.inflate(activity,setLayoutRes(),null);
-        ButterKnife.bind(this,rootView);
+    public CommonViewHolder(A context){
+        int layoutRes = setLayoutRes();
+        this.activity = context;
+        if(layoutRes !=0){
+            rootView = (ViewGroup) View.inflate(context,setLayoutRes(),null);
+        }else {
+            rootView = setRootView(context);
+            if(rootView ==null){
+                throw new RuntimeException("setRootView is null !");
+            }
+        }
+
+        //ButterKnife.bind(this,rootView);
+        findViews();
+    }
+
+    protected ViewGroup setRootView(Context context) {
+        return null;
     }
 
     protected abstract int setLayoutRes();
 
-    public abstract void assingDatasAndEvents(D bean);
+    protected abstract void findViews();
+
+    public  abstract void assingDatasAndEvents(A activity, @Nullable T bean);
 }
  
  ```
- 
+

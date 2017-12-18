@@ -46,9 +46,9 @@ public class ListActivity extends Activity{
         datas.add(new Bean1("sixteen"));
         datas.add(new Bean1("17"));
         datas.add(new Bean2("eighteen"));
-        SuperLvAdapter adapter = new SuperLvAdapter<ListActivity>(this) {
+        SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
             @Override
-            protected SuperLvHolder generateNewHolder(ListActivity context, int itemViewType) {
+            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType) {
                 if(itemViewType == Bean1.class.hashCode()){
                     return new Holder1(context);
                 }else if(itemViewType == Bean2.class.hashCode()){
@@ -56,17 +56,6 @@ public class ListActivity extends Activity{
                 }
                 return null;
             }
-
-            /*@Override
-            public int getItemViewType(int position) {
-               if(getListData().get(position) instanceof Bean1) {
-                   return TYPE_1;
-               }else if(getListData().get(position) instanceof  Bean2){
-                   return TYPE_2;
-               }else {
-                   return 0;
-               }
-            }*/
         };
         adapter.addAll(datas);
         listView.setAdapter(adapter);

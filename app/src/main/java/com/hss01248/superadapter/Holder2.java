@@ -1,5 +1,6 @@
 package com.hss01248.superadapter;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,11 +15,11 @@ import butterknife.BindView;
  * Created by huangshuisheng on 2017/11/15.
  */
 
-public class Holder2 extends SuperLvHolder<Bean2,ListActivity> {
+public class Holder2 extends SuperLvHolder<Bean2,Activity> {
     @BindView(R.id.tv_text)
     TextView tvText;
 
-    public Holder2(ListActivity context) {
+    public Holder2(Activity context) {
         super(context);
     }
 
@@ -28,13 +29,13 @@ public class Holder2 extends SuperLvHolder<Bean2,ListActivity> {
     }
 
     @Override
-    public void assingDatasAndEvents(ListActivity context, Bean2 bean) {
+    public void assingDatasAndEvents(Activity context, Bean2 bean) {
 
 
     }
 
     @Override
-    public void assingDatasAndEvents(ListActivity context, Bean2 bean, final int position, boolean isLast, boolean isListViewFling, List datas, final SuperLvAdapter superAdapter) {
+    public void assingDatasAndEvents(Activity context, Bean2 bean, final int position, boolean isLast, boolean isListViewFling, List datas, final SuperLvAdapter superAdapter) {
         tvText.setText(bean.toString());
         tvText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

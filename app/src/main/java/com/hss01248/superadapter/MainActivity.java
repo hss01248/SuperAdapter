@@ -64,8 +64,6 @@ public class MainActivity extends Activity {
             protected SuperRvHolder generateCoustomViewHolder(int viewType) {
                 if(viewType == String.class.hashCode()){
                     return new SuperRvHolder<String,MainActivity>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
-
-
                         @Override
                         public void assignDatasAndEvents(MainActivity context, String data) {
                             super.assignDatasAndEvents(context, data);
