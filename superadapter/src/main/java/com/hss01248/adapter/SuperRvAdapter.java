@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/22 0022.
  */
-public  abstract   class SuperRcvAdapter<A extends Activity> extends RecyclerView.Adapter<SuperRcvHolder> implements Refreshable {
+public  abstract   class SuperRvAdapter<A extends Activity> extends RecyclerView.Adapter<SuperRvHolder> implements Refreshable {
 
 
     private List datas;
@@ -29,7 +29,7 @@ public  abstract   class SuperRcvAdapter<A extends Activity> extends RecyclerVie
 
 
 
-    public SuperRcvAdapter( A context){
+    public SuperRvAdapter(A context){
 
         this.datas = new ArrayList();
         this.context = context;
@@ -48,14 +48,14 @@ public  abstract   class SuperRcvAdapter<A extends Activity> extends RecyclerVie
 
 
     @Override
-    public SuperRcvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SuperRvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return generateCoustomViewHolder(viewType);
     }
 
-    protected abstract SuperRcvHolder generateCoustomViewHolder(int viewType);
+    protected abstract SuperRvHolder generateCoustomViewHolder(int viewType);
 
     @Override
-    public void onBindViewHolder(SuperRcvHolder holder, int position) {
+    public void onBindViewHolder(SuperRvHolder holder, int position) {
         holder.assignDatasAndEvents(context,datas.get(position),position,position == getItemCount() -1,isListViewFling,datas,this);
     }
 
@@ -118,6 +118,11 @@ public  abstract   class SuperRcvAdapter<A extends Activity> extends RecyclerVie
             notifyItemInserted(datas.size() -1);
         }
 
+    }
+
+    @Override
+    public void refresh() {
+        notifyDataSetChanged();
     }
 
     public List getListData(){

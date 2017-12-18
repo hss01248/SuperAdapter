@@ -11,20 +11,20 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/8/22 0022.
  */
-public abstract  class SuperRcvHolder<T,A extends Activity> extends RecyclerView.ViewHolder {
+public abstract  class SuperRvHolder<T,A extends Activity> extends RecyclerView.ViewHolder {
 
     public  View rootView;
 
     public int type;
 
-    public SuperRcvHolder(View itemView) {
+    public SuperRvHolder(View itemView) {
         super(itemView);
         rootView = itemView;
 
         ButterKnife.bind(this,rootView);
     }
 
-    public SuperRcvHolder setType(int type){
+    public SuperRvHolder setType(int type){
         this.type = type;
         return this;
     }
@@ -40,7 +40,7 @@ public abstract  class SuperRcvHolder<T,A extends Activity> extends RecyclerView
      * @param superRecyAdapter adapter对象引用,可用于触发notifydatesetChanged()方法刷新整个listview,比如更改的单选按钮
      */
     public  void assignDatasAndEvents(A context, T data, int position,
-                                              boolean isLast, boolean isListViewFling,List datas, SuperRcvAdapter superRecyAdapter){
+                                              boolean isLast, boolean isListViewFling,List datas, SuperRvAdapter superRecyAdapter){
         assignDatasAndEvents(context,data);
     }
 

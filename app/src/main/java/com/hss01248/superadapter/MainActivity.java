@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hss01248.adapter.SuperRcvHolder;
-import com.hss01248.adapter.SuperRcvAdapter;
+import com.hss01248.adapter.SuperRvAdapter;
+import com.hss01248.adapter.SuperRvHolder;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     RecyclerView mRecyclerView;
     ArrayList<String> datas;
 
-    SuperRcvAdapter mAdapter;
+    SuperRvAdapter mAdapter;
     public static Activity mActivity;
 
 
@@ -29,6 +29,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mActivity = this;
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.lv);
         datas = new ArrayList<>();
 
@@ -55,13 +57,13 @@ public class MainActivity extends Activity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
 
-        mAdapter = new SuperRcvAdapter( mActivity) {
+        mAdapter = new SuperRvAdapter( mActivity) {
 
             public static final int TYPE_0 = 1;
             public static final int TYPE_1 = 2;
 
             @Override
-            protected SuperRcvHolder generateCoustomViewHolder(int viewType) {
+            protected SuperRvHolder generateCoustomViewHolder(int viewType) {
 
                 switch (viewType) {
                     case TYPE_0:
@@ -69,7 +71,7 @@ public class MainActivity extends Activity {
                     case TYPE_1:
                         return new CustomHolder2(inflate(R.layout.holder_demo_list_2));
                     default:
-                        return new SuperRcvHolder<String>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
+                        return new SuperRvHolder<String>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
                             private TextView tv_text;
 
                             @Override
@@ -117,7 +119,7 @@ public class MainActivity extends Activity {
     }
 
 
-    class CustomHolder extends SuperRcvHolder<String> {
+    class CustomHolder extends SuperRvHolder<String> {
 
         @BindView(R.id.tv_text)
         TextView mTvText;
@@ -133,7 +135,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    public static class CustomHolder2 extends SuperRcvHolder<String> {
+    public static class CustomHolder2 extends SuperRvHolder<String> {
 
 
         @BindView(R.id.tv_text)

@@ -61,6 +61,11 @@ public abstract class SuperPagerAdapter<A extends Activity> extends PagerAdapter
     }
 
     @Override
+    public void refresh() {
+        notifyDataSetChanged();
+    }
+
+    @Override
     public void refresh(List newData) {
         datas.clear();
         datas.addAll(newData);

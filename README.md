@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.hss01248:SuperAdapter:1.0.2'
+	        compile 'com.github.hss01248:SuperAdapter:1.0.4'
 	}
 
 # 使用
@@ -159,3 +159,25 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
         }
     
     }
+    
+ # 额外福利:BaseViewHolder
+ 通用性viewholder,非典型的MVVM的实现:
+ 
+ ```
+ public abstract class BaseViewHolder<A extends Activity,D> {
+
+    A activity;
+    public View rootView;
+
+    public BaseViewHolder(A activity){
+        rootView = View.inflate(activity,setLayoutRes(),null);
+        ButterKnife.bind(this,rootView);
+    }
+
+    protected abstract int setLayoutRes();
+
+    public abstract void assingDatasAndEvents(D bean);
+}
+ 
+ ```
+ 
