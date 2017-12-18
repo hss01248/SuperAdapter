@@ -16,6 +16,7 @@ public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter imp
     List datas;
     A context;
     boolean isListViewFling;
+    public static final int TYPE_NULL = 1;
 
     public boolean isListViewFling() {
         return isListViewFling;
@@ -38,8 +39,20 @@ public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter imp
     }
 
 
-
-
+    /**
+     * view和数据model/bean一一对应
+     * 与javabean的类型挂钩,有几个javabean类型,就有几个item类型
+     * @param position
+     * @return
+     */
+    @Override
+    public int getItemViewType(int position) {
+        Object obj = datas.get(position);
+        if(obj ==null){
+            return TYPE_NULL;
+        }
+        return obj.getClass().hashCode();
+    }
 
     @Override
     public Object getItem(int position) {
@@ -61,13 +74,17 @@ public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter imp
         SuperLvHolder holder = null;
         View retrunView = convertView;
         if (convertView == null){
-            holder = generateNewHolder(context,getItemViewType(position));
+            int type = getItemViewType(position);
+            holder = generateNewHolder(context,type);
+            holder.setType(type);
             retrunView = holder.rootView;
             retrunView.setTag(holder);
         }else {
             holder = (SuperLvHolder) retrunView.getTag();
             if(!(holder.type == getItemViewType(position))){
-                holder = generateNewHolder(context,getItemViewType(position));
+                int type = getItemViewType(position);
+                holder = generateNewHolder(context,type);
+                holder.setType(type);
                 retrunView = holder.rootView;
                 retrunView.setTag(holder);
             }
@@ -133,8 +150,10 @@ public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter imp
 
     @Override
     public void add(Object object) {
-        if (object ==null)
+        if (object ==null){
             return;
+        }
+
         try {
             datas.add(object);
             notifyDataSetChanged();

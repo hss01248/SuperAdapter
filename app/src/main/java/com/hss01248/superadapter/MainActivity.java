@@ -11,6 +11,7 @@ import com.hss01248.adapter.SuperRvAdapter;
 import com.hss01248.adapter.SuperRvHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -18,10 +19,10 @@ import butterknife.BindView;
 public class MainActivity extends Activity {
 
     RecyclerView mRecyclerView;
-    ArrayList<String> datas;
+    List datas;
 
     SuperRvAdapter mAdapter;
-    public static Activity mActivity;
+    public  MainActivity mActivity;
 
 
     @Override
@@ -34,92 +35,69 @@ public class MainActivity extends Activity {
         mRecyclerView = (RecyclerView) findViewById(R.id.lv);
         datas = new ArrayList<>();
 
-        datas.add("0");
+        datas.add(new Bean1("0"));
         datas.add("two");
-        datas.add("3");
+        datas.add(new Bean2("3"));
         datas.add("four");
         datas.add("5");
-        datas.add("six");
+        datas.add(new Bean1("six"));
 
         datas.add("7");
         datas.add("eight");
         datas.add("9");
         datas.add("ten");
         datas.add("11");
-        datas.add("twelve");
+        datas.add(new Bean2("twelve"));
 
-        datas.add("13");
+        datas.add(new Bean1("13"));
         datas.add("fourteen");
         datas.add("15");
         datas.add("sixteen");
-        datas.add("17");
+        datas.add(new Bean2("17"));
         datas.add("eighteen");
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
 
-        mAdapter = new SuperRvAdapter( mActivity) {
-
-            public static final int TYPE_0 = 1;
-            public static final int TYPE_1 = 2;
+        mAdapter = new SuperRvAdapter<MainActivity>( MainActivity.this) {
 
             @Override
             protected SuperRvHolder generateCoustomViewHolder(int viewType) {
+                if(viewType == String.class.hashCode()){
+                    return new SuperRvHolder<String,MainActivity>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
 
-                switch (viewType) {
-                    case TYPE_0:
-                        return new CustomHolder(inflate(R.layout.holder_demo_list));
-                    case TYPE_1:
-                        return new CustomHolder2(inflate(R.layout.holder_demo_list_2));
-                    default:
-                        return new SuperRvHolder<String>(inflate(R.layout.holder_demo_list_2)) {//匿名子类
-                            private TextView tv_text;
 
-                            @Override
-                            public void assignDatasAndEvents(Activity context, String data) {
-                                super.assignDatasAndEvents(context, data);
-                                tv_text.setText(data);
-                            }
-                        };
+                        @Override
+                        public void assignDatasAndEvents(MainActivity context, String data) {
+                            super.assignDatasAndEvents(context, data);
+                            ((TextView)(rootView.findViewById(R.id.tv_text))).setText(data+" string type");
+                        }
+                    };
                 }
 
-            }
-
-
-            @Override
-            public int getItemViewType(int position) {
-                if (position  == datas.size()-1) {//偶数位
-                    return TYPE_0;
-                } else {//奇数位
-                    return TYPE_1;
+                if(viewType == Bean1.class.hashCode()){
+                    return new CustomHolder(inflate(R.layout.holder_demo_list));
                 }
+
+                if(viewType == Bean2.class.hashCode()){
+                    return new CustomHolder2(inflate(R.layout.holder_demo_list));
+                }
+                return new CustomHolder(inflate(R.layout.holder_demo_list));
 
             }
         };
 
-        mRecyclerView.setAdapter(mAdapter);
+        try {
+            mAdapter.addAll(datas);
+            mRecyclerView.setAdapter(mAdapter);
 
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
 
-
-
-
-      /*  ListView listView = new ListView(this);
-        ArrayList<String> datas = new ArrayList<>();
-
-        SuperAdapter adapter = new SuperAdapter(datas, this) {
-            @Override
-            protected MyViewHolder generateNewHolder(int itemViewType) {
-                return new CustomHolder(MainActivity.this);
-            }
-        };
-
-        listView.setAdapter(adapter);
-
-
-        adapter.add("hhhh");*/
     }
 
 
-    class CustomHolder extends SuperRvHolder<String> {
+    class CustomHolder extends SuperRvHolder<Bean1,MainActivity> {
 
         @BindView(R.id.tv_text)
         TextView mTvText;
@@ -130,12 +108,12 @@ public class MainActivity extends Activity {
 
 
         @Override
-        public void assignDatasAndEvents(Activity context, String data) {
-            mTvText.setText(data.toString());
+        public void assignDatasAndEvents(MainActivity context, Bean1 data) {
+            mTvText.setText(data.toString()+"  bean1 type");
         }
     }
 
-    public static class CustomHolder2 extends SuperRvHolder<String> {
+    public static class CustomHolder2 extends SuperRvHolder<Bean2,MainActivity> {
 
 
         @BindView(R.id.tv_text)
@@ -147,8 +125,8 @@ public class MainActivity extends Activity {
 
 
         @Override
-        public void assignDatasAndEvents(Activity context, String data) {
-            mTvText.setText(data.toString());
+        public void assignDatasAndEvents(MainActivity context, Bean2 data) {
+            mTvText.setText(data.toString() +"  bean2 type");
         }
 
 

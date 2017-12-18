@@ -20,7 +20,6 @@ public abstract  class SuperRvHolder<T,A extends Activity> extends RecyclerView.
     public SuperRvHolder(View itemView) {
         super(itemView);
         rootView = itemView;
-
         ButterKnife.bind(this,rootView);
     }
 

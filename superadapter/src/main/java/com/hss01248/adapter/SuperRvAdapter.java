@@ -18,6 +18,7 @@ public  abstract   class SuperRvAdapter<A extends Activity> extends RecyclerView
     private List datas;
     private A context;
     boolean isListViewFling;
+    public static final int TYPE_NULL = 1;
 
     public boolean isListViewFling() {
         return isListViewFling;
@@ -57,6 +58,15 @@ public  abstract   class SuperRvAdapter<A extends Activity> extends RecyclerView
     @Override
     public void onBindViewHolder(SuperRvHolder holder, int position) {
         holder.assignDatasAndEvents(context,datas.get(position),position,position == getItemCount() -1,isListViewFling,datas,this);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Object obj = datas.get(position);
+        if(obj ==null){
+            return TYPE_NULL;
+        }
+        return obj.getClass().hashCode();
     }
 
     @Override
