@@ -12,9 +12,9 @@ import java.util.List;
  * 单一的item
  * Created by Administrator on 2016/4/15 0015.
  */
-public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable {
+public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter implements Refreshable {
     List datas;
-    Activity context;
+    A context;
     boolean isListViewFling;
 
     public boolean isListViewFling() {
@@ -26,7 +26,7 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
     }
 
 
-    public SuperLvAdapter(Activity context){
+    public SuperLvAdapter(A context){
         this.datas = new ArrayList();
         this.context = context;
     }
@@ -75,7 +75,7 @@ public abstract class SuperLvAdapter extends BaseAdapter implements Refreshable 
         return convertView;
     }
 
-    protected abstract SuperLvHolder generateNewHolder(Activity context, int itemViewType);
+    protected abstract SuperLvHolder generateNewHolder(A context, int itemViewType);
     @Override
     public void refresh(List newData){
         if (newData == null){

@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/22 0022.
  */
-public  abstract   class SuperRcvAdapter extends RecyclerView.Adapter<SuperRcvHolder> implements Refreshable {
+public  abstract   class SuperRcvAdapter<A extends Activity> extends RecyclerView.Adapter<SuperRcvHolder> implements Refreshable {
 
 
     private List datas;
-    private Activity context;
+    private A context;
     boolean isListViewFling;
 
     public boolean isListViewFling() {
@@ -29,7 +29,7 @@ public  abstract   class SuperRcvAdapter extends RecyclerView.Adapter<SuperRcvHo
 
 
 
-    public SuperRcvAdapter( Activity context){
+    public SuperRcvAdapter( A context){
 
         this.datas = new ArrayList();
         this.context = context;
