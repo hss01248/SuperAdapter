@@ -6,8 +6,6 @@ import android.view.View;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by Administrator on 2016/8/22 0022.
  */
@@ -15,13 +13,18 @@ public abstract  class SuperRvHolder<T,A extends Activity> extends RecyclerView.
 
     public  View rootView;
 
+    /**
+     * 用于内部标记类型
+     */
     public int type;
 
     public SuperRvHolder(View itemView) {
         super(itemView);
         rootView = itemView;
-        ButterKnife.bind(this,rootView);
+        findViewsById(rootView);
     }
+
+    protected abstract void findViewsById(View rootView);
 
     public SuperRvHolder setType(int type){
         this.type = type;

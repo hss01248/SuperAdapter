@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by Administrator on 2017/12/9.
  */
@@ -26,9 +24,11 @@ public abstract class SuperPagerHolder<T,A extends Activity> {
             rootView = setRootView(context);
         }
 
-        ButterKnife.bind(this,rootView);
+        findViewsById(rootView);
 
     }
+
+    protected abstract void findViewsById(ViewGroup rootView);
 
     protected ViewGroup setRootView(Context context) {
         return null;

@@ -6,8 +6,6 @@ import android.view.View;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by Administrator on 2016/4/15 0015.
  */
@@ -31,8 +29,10 @@ public abstract class SuperLvHolder<T,A extends Activity> {
                 throw new RuntimeException("setRootView is null !");
             }
         }
-        ButterKnife.bind(this,rootView);
+        findViewsById(rootView);
     }
+
+    protected abstract void findViewsById(View rootView);
 
     private View setRootView(A context) {
         return null;

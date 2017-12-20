@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.hss01248:SuperAdapter:2.0.1'
+	        compile 'com.github.hss01248:SuperAdapter:2.0.2'
 	}
 
 # 使用
@@ -63,6 +63,12 @@ Step 2. Add the dependency
 
 adapter一般情况下都使用匿名子类.多个item时分别指定类型和对应的hoder即可.
 holder一般也使用匿名子类.如果在其他页面需要复用,那么可以写成单独的子类.其layout文件需要在构造函数前传入,已封装好方法.
+
+
+
+
+
+## 使用findviewByMe插件生成findviewbyid代码,取消butterknife,以防内存泄漏以及为防止其内存泄漏的复杂操作.
 
 # 示例代码
 

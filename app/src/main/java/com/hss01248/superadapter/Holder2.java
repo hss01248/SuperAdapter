@@ -9,18 +9,22 @@ import com.hss01248.adapter.SuperLvHolder;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created by huangshuisheng on 2017/11/15.
  */
 
-public class Holder2 extends SuperLvHolder<Bean2,Activity> {
-    @BindView(R.id.tv_text)
-    TextView tvText;
+public class Holder2 extends SuperLvHolder<Bean2, Activity> {
+
+
+    private TextView tvText;
 
     public Holder2(Activity context) {
         super(context);
+    }
+
+    @Override
+    protected void findViewsById(View rootView) {
+        tvText = (TextView) rootView.findViewById(R.id.tv_text);
     }
 
     @Override
@@ -35,7 +39,8 @@ public class Holder2 extends SuperLvHolder<Bean2,Activity> {
     }
 
     @Override
-    public void assingDatasAndEvents(Activity context, Bean2 bean, final int position, boolean isLast, boolean isListViewFling, List datas, final SuperLvAdapter superAdapter) {
+    public void assingDatasAndEvents(Activity context, Bean2 bean, final int position, boolean isLast,
+                                     boolean isListViewFling, List datas, final SuperLvAdapter superAdapter) {
         tvText.setText(bean.toString());
         tvText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -46,4 +51,6 @@ public class Holder2 extends SuperLvHolder<Bean2,Activity> {
             }
         });
     }
+
+
 }

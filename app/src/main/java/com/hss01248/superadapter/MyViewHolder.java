@@ -1,14 +1,23 @@
 package com.hss01248.superadapter;
 
-import com.hss01248.adapter.BaseViewHolder;
+
+import android.support.annotation.Nullable;
+import android.view.View;
+
+import com.hss01248.adapter.CommonViewHolder;
 
 /**
  * Created by Administrator on 2017/12/1.
  */
 
-public class MyViewHolder extends BaseViewHolder<MainActivity,Bean1> {
+public class MyViewHolder extends CommonViewHolder<Bean1,MainActivity> {
     public MyViewHolder(MainActivity activity) {
         super(activity);
+    }
+
+    @Override
+    protected void findViewsById(View rootView) {
+
     }
 
     @Override
@@ -17,7 +26,8 @@ public class MyViewHolder extends BaseViewHolder<MainActivity,Bean1> {
     }
 
     @Override
-    public void assingDatasAndEvents(Bean1 bean) {
+    public void assingDatasAndEvents(MainActivity activity, @Nullable Bean1 bean) {
 
     }
+
 }

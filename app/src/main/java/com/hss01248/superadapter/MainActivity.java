@@ -14,8 +14,6 @@ import com.hss01248.adapter.SuperRvHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
 
 public class MainActivity extends Activity {
 
@@ -66,6 +64,11 @@ public class MainActivity extends Activity {
                 if(viewType == String.class.hashCode()){
                     return new SuperRvHolder<String,MainActivity>(inflate(parent,R.layout.holder_demo_list_2)) {//匿名子类
                         @Override
+                        protected void findViewsById(View rootView) {
+                            //mTvText = (TextView) rootView.findViewById(R.id.tv_text);
+                        }
+
+                        @Override
                         public void assignDatasAndEvents(MainActivity context, String data) {
                             super.assignDatasAndEvents(context, data);
                             ((TextView)(rootView.findViewById(R.id.tv_text))).setText(data+" string type");
@@ -98,11 +101,16 @@ public class MainActivity extends Activity {
 
     class CustomHolder extends SuperRvHolder<Bean1,MainActivity> {
 
-        @BindView(R.id.tv_text)
+
         TextView mTvText;
 
         public CustomHolder(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        protected void findViewsById(View rootView) {
+            mTvText = (TextView) rootView.findViewById(R.id.tv_text);
         }
 
 
@@ -115,11 +123,16 @@ public class MainActivity extends Activity {
     public static class CustomHolder2 extends SuperRvHolder<Bean2,MainActivity> {
 
 
-        @BindView(R.id.tv_text)
+
         TextView mTvText;
 
         public CustomHolder2(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        protected void findViewsById(View rootView) {
+            mTvText = (TextView) rootView.findViewById(R.id.tv_text);
         }
 
 
