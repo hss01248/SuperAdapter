@@ -1,6 +1,6 @@
 package com.hss01248.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Administrator on 2017/12/9.
  */
 
-public abstract class SuperPagerAdapter<A extends Activity> extends PagerAdapter implements Refreshable{
+public abstract class SuperPagerAdapter<A extends Context> extends PagerAdapter implements Refreshable,ILifeCycle{
 
     List datas = new ArrayList();
     List<SuperPagerHolder> mPagerHolders = new ArrayList<>();
@@ -94,5 +94,10 @@ public abstract class SuperPagerAdapter<A extends Activity> extends PagerAdapter
     public void add(Object object) {
         datas.add(object);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestory() {
+
     }
 }

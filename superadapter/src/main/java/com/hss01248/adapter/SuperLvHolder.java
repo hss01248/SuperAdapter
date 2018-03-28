@@ -1,6 +1,6 @@
 package com.hss01248.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/15 0015.
  */
-public abstract class SuperLvHolder<T,A extends Activity> {
+public abstract class SuperLvHolder<T,A extends Context> implements  View.OnAttachStateChangeListener,ILifeCycle{
     public View rootView;
     public int type;
     public A activity;
@@ -29,10 +29,15 @@ public abstract class SuperLvHolder<T,A extends Activity> {
                 throw new RuntimeException("setRootView is null !");
             }
         }
-        findViewsById(rootView);
+        rootView.addOnAttachStateChangeListener(this);
+        if(SuperHolderInitor.getButterKnife() !=null){
+            SuperHolderInitor.getButterKnife().bind(this,rootView);
+        }else {
+            findViewsById(rootView);
+        }
     }
 
-    protected abstract void findViewsById(View rootView);
+    protected  void findViewsById(View rootView){}
 
     private View setRootView(A context) {
         return null;
@@ -65,5 +70,20 @@ public abstract class SuperLvHolder<T,A extends Activity> {
     public void assingDatasAndEvents(A activity, T bean, int position ,boolean isLast,
                                      boolean isListViewFling,List datas, SuperLvAdapter superAdapter){
         assingDatasAndEvents(activity,bean);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(View v) {
+
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(View v) {
+
+    }
+
+    @Override
+    public void onDestory() {
+
     }
 }

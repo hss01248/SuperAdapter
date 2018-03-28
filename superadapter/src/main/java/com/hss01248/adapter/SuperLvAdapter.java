@@ -1,6 +1,7 @@
 package com.hss01248.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,7 +13,7 @@ import java.util.List;
  * 单一的item
  * Created by Administrator on 2016/4/15 0015.
  */
-public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter implements Refreshable {
+public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter implements Refreshable,ILifeCycle {
     List datas;
     A context;
     boolean isListViewFling;
@@ -161,5 +162,10 @@ public abstract class SuperLvAdapter<A extends Activity> extends BaseAdapter imp
             e.printStackTrace();
 
         }
+    }
+
+    @Override
+    public void onDestory() {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.hss01248.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/22 0022.
  */
-public  abstract   class SuperRvAdapter<A extends Activity> extends RecyclerView.Adapter<SuperRvHolder> implements Refreshable {
+public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.Adapter<SuperRvHolder> implements Refreshable,ILifeCycle {
 
 
     private List datas;
@@ -140,6 +140,11 @@ public  abstract   class SuperRvAdapter<A extends Activity> extends RecyclerView
 
     public List getListData(){
         return datas;
+    }
+
+    @Override
+    public void onDestory() {
+
     }
 
     /*public class  ViewHolder extends RecyclerView.ViewHolder {

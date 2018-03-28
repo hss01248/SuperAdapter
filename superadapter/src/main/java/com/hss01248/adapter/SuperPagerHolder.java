@@ -1,6 +1,5 @@
 package com.hss01248.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
  * Created by Administrator on 2017/12/9.
  */
 
-public abstract class SuperPagerHolder<T,A extends Activity> {
+public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnAttachStateChangeListener,ILifeCycle{
 
     public ViewGroup rootView;
     public A activity;
@@ -23,12 +22,15 @@ public abstract class SuperPagerHolder<T,A extends Activity> {
         }else {
             rootView = setRootView(context);
         }
-
-        findViewsById(rootView);
-
+        rootView.addOnAttachStateChangeListener(this);
+        if(SuperHolderInitor.getButterKnife() !=null){
+            SuperHolderInitor.getButterKnife().bind(this,rootView);
+        }else {
+            findViewsById(rootView);
+        }
     }
 
-    protected abstract void findViewsById(ViewGroup rootView);
+    protected  void findViewsById(View rootView){}
 
     protected ViewGroup setRootView(Context context) {
         return null;
@@ -38,4 +40,19 @@ public abstract class SuperPagerHolder<T,A extends Activity> {
 
 
     public  abstract void assingDatasAndEvents(A activity, @Nullable T bean, int position);
+
+    @Override
+    public void onViewAttachedToWindow(View v) {
+
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(View v) {
+
+    }
+
+    @Override
+    public void onDestory() {
+
+    }
 }

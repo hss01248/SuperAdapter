@@ -1,6 +1,6 @@
 package com.hss01248.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/8/22 0022.
  */
-public abstract  class SuperRvHolder<T,A extends Activity> extends RecyclerView.ViewHolder {
+public abstract  class SuperRvHolder<T,A extends Context> extends RecyclerView.ViewHolder implements  View.OnAttachStateChangeListener,ILifeCycle{
 
     public  View rootView;
 
@@ -21,10 +21,15 @@ public abstract  class SuperRvHolder<T,A extends Activity> extends RecyclerView.
     public SuperRvHolder(View itemView) {
         super(itemView);
         rootView = itemView;
-        findViewsById(rootView);
+        rootView.addOnAttachStateChangeListener(this);
+        if(SuperHolderInitor.getButterKnife() !=null){
+            SuperHolderInitor.getButterKnife().bind(this,rootView);
+        }else {
+            findViewsById(rootView);
+        }
     }
 
-    protected abstract void findViewsById(View rootView);
+    protected  void findViewsById(View rootView){}
 
     public SuperRvHolder setType(int type){
         this.type = type;
@@ -55,5 +60,18 @@ public abstract  class SuperRvHolder<T,A extends Activity> extends RecyclerView.
 
     }
 
+    @Override
+    public void onViewAttachedToWindow(View v) {
 
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(View v) {
+
+    }
+
+    @Override
+    public void onDestory() {
+
+    }
 }
