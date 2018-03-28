@@ -9,7 +9,7 @@ import android.view.ViewGroup;
  * Created by huangshuisheng on 2017/12/18.
  */
 
-public abstract class CommonViewHolder<T,A extends Context> implements  View.OnAttachStateChangeListener{
+public abstract class CommonViewHolder<T,A extends Context> implements  View.OnAttachStateChangeListener,ILifeCycle{
 
     public View rootView;
     public A activity;
@@ -26,10 +26,13 @@ public abstract class CommonViewHolder<T,A extends Context> implements  View.OnA
             }
         }
         rootView.addOnAttachStateChangeListener(this);
+        if(SuperHolderInitor.getButterKnife() !=null){
+            SuperHolderInitor.getButterKnife().bind(this,rootView);
+        }
         findViewsById(rootView);
     }
 
-    protected abstract void findViewsById(View rootView);
+    protected  void findViewsById(View rootView){}
 
     protected ViewGroup setRootView(Context context) {
         return null;
@@ -46,6 +49,11 @@ public abstract class CommonViewHolder<T,A extends Context> implements  View.OnA
 
     @Override
     public void onViewDetachedFromWindow(View v) {
+
+    }
+
+    @Override
+    public void onDestory() {
 
     }
 }

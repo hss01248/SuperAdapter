@@ -32,9 +32,8 @@ public abstract class SuperLvHolder<T,A extends Context> implements  View.OnAtta
         rootView.addOnAttachStateChangeListener(this);
         if(SuperHolderInitor.getButterKnife() !=null){
             SuperHolderInitor.getButterKnife().bind(this,rootView);
-        }else {
-            findViewsById(rootView);
         }
+        findViewsById(rootView);
     }
 
     protected  void findViewsById(View rootView){}

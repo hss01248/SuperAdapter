@@ -24,9 +24,8 @@ public abstract  class SuperRvHolder<T,A extends Context> extends RecyclerView.V
         rootView.addOnAttachStateChangeListener(this);
         if(SuperHolderInitor.getButterKnife() !=null){
             SuperHolderInitor.getButterKnife().bind(this,rootView);
-        }else {
-            findViewsById(rootView);
         }
+        findViewsById(rootView);
     }
 
     protected  void findViewsById(View rootView){}

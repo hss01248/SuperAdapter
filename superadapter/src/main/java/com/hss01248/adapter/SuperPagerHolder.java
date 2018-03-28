@@ -25,9 +25,8 @@ public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnA
         rootView.addOnAttachStateChangeListener(this);
         if(SuperHolderInitor.getButterKnife() !=null){
             SuperHolderInitor.getButterKnife().bind(this,rootView);
-        }else {
-            findViewsById(rootView);
         }
+        findViewsById(rootView);
     }
 
     protected  void findViewsById(View rootView){}
