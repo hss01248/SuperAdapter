@@ -1,12 +1,12 @@
 package com.hss01248.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,6 +15,7 @@ import java.util.List;
  */
 public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter implements Refreshable,ILifeCycle {
     List datas;
+    HashMap<Class,Integer> itemCountTypeMap;
     A context;
     boolean isListViewFling;
     public static final int TYPE_NULL = 1;
@@ -31,6 +32,7 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
     public SuperLvAdapter(A context){
         this.datas = new ArrayList();
         this.context = context;
+        itemCountTypeMap = new HashMap<>();
     }
     @Override
     public int getCount() {
@@ -39,20 +41,57 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
         return datas.size();
     }
 
+    protected int getViewTypeByClass(Class clazz){
+        return itemCountTypeMap.get(clazz);
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return getDatasTypeCount();
+    }
+
+    private int getDatasTypeCount() {
+        itemCountTypeMap.clear();
+        int i = 0;
+        for (Object obj : datas) {
+            Class clazz = null;
+            if(obj ==null){
+                clazz = MyTypeNull.class;
+            }else {
+                clazz = obj.getClass();
+            }
+            if(!itemCountTypeMap.containsKey(clazz)){
+                itemCountTypeMap.put(clazz,i);
+                i++;
+            }
+        }
+        if(i>1){
+            return i;
+        }
+        return super.getViewTypeCount();
+    }
 
     /**
      * view和数据model/bean一一对应
      * 与javabean的类型挂钩,有几个javabean类型,就有几个item类型
+     * 而且,返回的数据要小于getViewTypeCount
      * @param position
      * @return
      */
     @Override
     public int getItemViewType(int position) {
+        return itemCountTypeMap.get(getClazz(position));
+    }
+
+    private Class getClazz(int position) {
         Object obj = datas.get(position);
+        Class clazz = null;
         if(obj ==null){
-            return TYPE_NULL;
+            clazz =  MyTypeNull.class;
+        }else {
+            clazz = obj.getClass();
         }
-        return obj.getClass().hashCode();
+        return clazz;
     }
 
     @Override
@@ -73,18 +112,19 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         SuperLvHolder holder = null;
+        Class clazz = getClazz(position);
+        int type = itemCountTypeMap.get(clazz);
         View retrunView = convertView;
         if (convertView == null){
-            int type = getItemViewType(position);
-            holder = generateNewHolder(context,type);
+
+            holder = generateNewHolder(context,type,clazz);
             holder.setType(type);
             retrunView = holder.rootView;
             retrunView.setTag(holder);
         }else {
             holder = (SuperLvHolder) retrunView.getTag();
-            if(!(holder.type == getItemViewType(position))){
-                int type = getItemViewType(position);
-                holder = generateNewHolder(context,type);
+            if(!(holder.type == type)){
+                holder = generateNewHolder(context,type,clazz);
                 holder.setType(type);
                 retrunView = holder.rootView;
                 retrunView.setTag(holder);
@@ -95,7 +135,7 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
     }
 
 
-    protected abstract SuperLvHolder generateNewHolder(A context, int itemViewType);
+    protected abstract SuperLvHolder generateNewHolder(A context, int itemViewType,Class beanClass);
 
     @Override
     public void refresh() {

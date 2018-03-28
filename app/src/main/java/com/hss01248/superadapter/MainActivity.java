@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hss01248.adapter.SuperRvAdapter;
 import com.hss01248.adapter.SuperRvHolder;
+import com.orhanobut.logger.XLogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
 
     SuperRvAdapter mAdapter;
     public  MainActivity mActivity;
+    int i = 0;
 
 
     @Override
@@ -61,6 +63,8 @@ public class MainActivity extends Activity {
 
             @Override
             protected SuperRvHolder generateCoustomViewHolder(ViewGroup parent, int viewType) {
+                XLogUtil.i("generateCoustomViewHolder--"+i);
+                i++;
                 if(viewType == String.class.hashCode()){
                     return new SuperRvHolder<String,MainActivity>(inflate(parent,R.layout.holder_demo_list_2)) {//匿名子类
                         @Override

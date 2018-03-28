@@ -27,6 +27,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
     compile 'com.github.hss01248:ListViewLinearLayout:1.0.0'
+    compile 'com.github.hss01248:Mylog:1.0.1'
+    compile 'com.alibaba:fastjson:1.1.54.android'
 
     //compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
 }

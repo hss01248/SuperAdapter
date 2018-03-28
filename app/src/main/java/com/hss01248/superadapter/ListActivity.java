@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import com.hss01248.adapter.SuperLvAdapter;
 import com.hss01248.adapter.SuperLvHolder;
+import com.orhanobut.logger.XLogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class ListActivity extends Activity{
 
+    int i=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class ListActivity extends Activity{
         datas.add(new Bean1("0"));
         datas.add(new Bean1("two"));
         datas.add(new Bean1("3"));
-        datas.add(new Bean2("four"));
+        datas.add(new Bean1("four"));
         datas.add(new Bean1("5"));
         datas.add(new Bean1("six"));
 
@@ -37,21 +39,23 @@ public class ListActivity extends Activity{
         datas.add(new Bean1("eight"));
         datas.add(new Bean1("9"));
         datas.add(new Bean1("ten"));
-        datas.add(new Bean1("11"));
-        datas.add(new Bean2("twelve"));
+        datas.add(new Bean2("11"));
+        datas.add(new Bean1("twelve"));
 
         datas.add(new Bean1("13"));
-        datas.add(new Bean1("fourteen"));
-        datas.add(new Bean2("15"));
+        datas.add(new Bean2("fourteen"));
+        datas.add(new Bean1("15"));
         datas.add(new Bean1("sixteen"));
         datas.add(new Bean1("17"));
-        datas.add(new Bean2("eighteen"));
+        datas.add(new Bean1("eighteen"));
         SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
             @Override
-            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType) {
-                if(itemViewType == Bean1.class.hashCode()){
+            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType,Class clazz) {
+                XLogUtil.i("generateCoustomViewHolder--"+i);
+                i++;
+                if(clazz == Bean1.class){
                     return new Holder1(context);
-                }else if(itemViewType == Bean2.class.hashCode()){
+                }else if(clazz ==  Bean2.class){
                     return new Holder2(context);
                 }
                 return null;

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.hss01248.adapter.SuperLvAdapter;
 import com.hss01248.adapter.SuperLvHolder;
 import com.linearlistview.LinearListView;
+import com.orhanobut.logger.XLogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class LinearListLayoutActy extends Activity {
 
     SuperLvAdapter mAdapter;
 
-
+    int i = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +55,14 @@ public class LinearListLayoutActy extends Activity {
         datas.add(new Bean1("17"));
         datas.add(new Bean1("eighteen"));
 
+
         SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
             @Override
-            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType) {
-                if(itemViewType == Bean1.class.hashCode()){
+            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType, Class beanClass) {
+                XLogUtil.i("generateNewHolder---"+(i++));
+                if(beanClass == Bean1.class){
                     return new Holder1(context);
-                }else if(itemViewType == Bean2.class.hashCode()){
+                }else if(beanClass == Bean2.class){
                     return new Holder2(context);
                 }
                 return new Holder1(context);
