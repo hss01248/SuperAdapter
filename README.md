@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.hss01248:SuperAdapter:2.0.2'
+	        compile 'com.github.hss01248:SuperAdapter:2.0.3'
 	}
 
 # 使用
@@ -68,7 +68,20 @@ holder一般也使用匿名子类.如果在其他页面需要复用,那么可以
 
 
 
-## 使用findviewByMe插件生成findviewbyid代码,取消butterknife,以防内存泄漏以及为防止其内存泄漏的复杂操作.
+## 可以使用findviewByMe插件生成findviewbyid代码,也可以外部注入butterknife的代码:
+
+```
+//在Application的oncreate方法中:
+
+SuperHolderInitor.init(new IBindView() {
+            @Override
+            public void bind(Object holder, View rootView) {
+                ButterKnife.bind(holder,rootView);
+            }
+        });
+```
+
+
 
 # 示例代码
 
