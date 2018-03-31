@@ -41,6 +41,9 @@ public abstract class CommonViewHolder<T,A extends Context> implements  View.OnA
     protected abstract int setLayoutRes();
 
     public  abstract void assingDatasAndEvents(A activity, @Nullable T bean);
+    public   void assingDatasAndEvents(A activity, @Nullable T bean,int position){
+        assingDatasAndEvents(activity,bean);
+    }
 
     @Override
     public void onViewAttachedToWindow(View v) {

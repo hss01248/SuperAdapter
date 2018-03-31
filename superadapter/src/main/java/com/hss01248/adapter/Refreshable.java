@@ -17,4 +17,6 @@ public interface Refreshable {
     public void delete(int position);
 
     public void add(Object object);
+
+    List getListData();
 }

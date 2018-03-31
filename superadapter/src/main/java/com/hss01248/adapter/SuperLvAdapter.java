@@ -185,6 +185,7 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
             notifyDataSetChanged();
         }
     }
+    @Override
     public List getListData(){
         return datas;
     }
