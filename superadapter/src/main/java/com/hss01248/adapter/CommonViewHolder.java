@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by huangshuisheng on 2017/12/18.
  */
@@ -41,8 +43,13 @@ public abstract class CommonViewHolder<T,A extends Context> implements  View.OnA
     protected abstract int setLayoutRes();
 
     public  abstract void assingDatasAndEvents(A activity, @Nullable T bean);
-    public   void assingDatasAndEvents(A activity, @Nullable T bean,int position){
+    public   void assingDatasAndEvents(A activity, @Nullable T bean, int position){
         assingDatasAndEvents(activity,bean);
+    }
+
+    public   void assingDatasAndEvents(A activity, @Nullable T bean, int position, Object extra,
+                                       boolean isLast, List datas, SuperViewGroupSingleAdapter adapter){
+        assingDatasAndEvents(activity,bean,position);
     }
 
     @Override
