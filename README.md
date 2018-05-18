@@ -20,7 +20,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.hss01248:SuperAdapter:2.0.3'
+	        compile 'com.github.hss01248:SuperAdapter:2.2.4'
 	}
 
 # 使用
