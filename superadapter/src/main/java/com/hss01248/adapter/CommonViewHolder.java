@@ -2,6 +2,7 @@ package com.hss01248.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,11 +17,13 @@ public abstract class CommonViewHolder<T,A extends Context> implements  View.OnA
     public View rootView;
     public A activity;
 
-    public CommonViewHolder(A context){
+    public CommonViewHolder(A context,ViewGroup viewGroup){
         this.activity = context;
         int layoutRes = setLayoutRes();
         if(layoutRes !=0){
-            rootView = (ViewGroup) View.inflate(context,setLayoutRes(),null);
+            LayoutInflater factory = LayoutInflater.from(context);
+            //通过这个方法让layoutres里的布局参数设置有效
+            rootView = factory.inflate(layoutRes,viewGroup,false);
         }else {
             rootView = setRootView(context);
             if(rootView ==null){

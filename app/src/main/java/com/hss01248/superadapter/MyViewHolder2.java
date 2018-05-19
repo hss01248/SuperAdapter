@@ -3,6 +3,7 @@ package com.hss01248.superadapter;
 import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.hss01248.adapter.CommonViewHolder;
 
@@ -11,8 +12,10 @@ import com.hss01248.adapter.CommonViewHolder;
  */
 
 public class MyViewHolder2 extends CommonViewHolder<Bean1,Activity> {
-    public MyViewHolder2(Activity activity) {
-        super(activity);
+
+
+    public MyViewHolder2(Activity context, ViewGroup viewGroup) {
+        super(context, viewGroup);
     }
 
     @Override

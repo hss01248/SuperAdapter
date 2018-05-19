@@ -2,6 +2,7 @@ package com.hss01248.superadapter;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hss01248.adapter.SuperLvAdapter;
@@ -21,9 +22,8 @@ public class Holder2 extends SuperLvHolder<Bean2, Activity> {
     @BindView(R.id.tv_text)
     TextView tvText;
 
-
-    public Holder2(Activity context) {
-        super(context);
+    public Holder2(Activity context, ViewGroup viewGroup) {
+        super(context, viewGroup);
     }
 
 

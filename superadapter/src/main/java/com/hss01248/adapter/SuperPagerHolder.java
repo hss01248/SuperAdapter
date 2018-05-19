@@ -2,6 +2,7 @@ package com.hss01248.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,13 +15,15 @@ public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnA
     public ViewGroup rootView;
     public A activity;
 
-    public SuperPagerHolder(A context){
+    public SuperPagerHolder(A context,ViewGroup parent){
         int layoutRes = setLayoutRes();
         this.activity = context;
         if(layoutRes !=0){
-            rootView = (ViewGroup) View.inflate(context,setLayoutRes(),null);
+            LayoutInflater factory = LayoutInflater.from(context);
+            //通过这个方法让layoutres里的布局参数设置有效
+            rootView = (ViewGroup) factory.inflate(layoutRes,parent,false);
         }else {
-            rootView = setRootView(context);
+            rootView = setRootView(context,parent);
         }
         rootView.addOnAttachStateChangeListener(this);
         if(SuperHolderInitor.getButterKnife() !=null){
@@ -31,7 +34,7 @@ public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnA
 
     protected  void findViewsById(View rootView){}
 
-    protected ViewGroup setRootView(Context context) {
+    protected ViewGroup setRootView(Context context,ViewGroup parent) {
         return null;
     }
 

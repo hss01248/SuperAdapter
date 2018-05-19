@@ -3,6 +3,7 @@ package com.hss01248.superadapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.hss01248.adapter.SuperLvAdapter;
@@ -50,13 +51,13 @@ public class ListActivity extends Activity{
         datas.add(new Bean1("eighteen"));
         SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
             @Override
-            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType,Class clazz) {
+            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType, Class clazz, ViewGroup parent) {
                 XLogUtil.i("generateCoustomViewHolder--"+i);
                 i++;
                 if(clazz == Bean1.class){
-                    return new Holder1(context);
+                    return new Holder1(context,parent);
                 }else if(clazz ==  Bean2.class){
-                    return new Holder2(context);
+                    return new Holder2(context,parent);
                 }
                 return null;
             }

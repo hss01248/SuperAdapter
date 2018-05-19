@@ -2,7 +2,9 @@ package com.hss01248.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -18,11 +20,13 @@ public abstract class SuperLvHolder<T,A extends Context> implements  View.OnAtta
 
     }*/
 
-    public SuperLvHolder(A context){
+    public SuperLvHolder(A context, ViewGroup viewGroup){
         this.activity = context;
         int layoutRes = setLayoutRes();
         if(layoutRes !=0){
-            rootView =  View.inflate(context,setLayoutRes(),null);
+            LayoutInflater factory = LayoutInflater.from(context);
+            //通过这个方法让layoutres里的布局参数设置有效
+            rootView = factory.inflate(layoutRes,viewGroup,false);
         }else {
             rootView = setRootView(context);
             if(rootView ==null){

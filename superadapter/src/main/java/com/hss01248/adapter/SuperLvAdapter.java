@@ -116,15 +116,14 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
         int type = itemCountTypeMap.get(clazz);
         View retrunView = convertView;
         if (convertView == null){
-
-            holder = generateNewHolder(context,type,clazz);
+            holder = generateNewHolder(context,type,clazz,parent);
             holder.setType(type);
             retrunView = holder.rootView;
             retrunView.setTag(holder);
         }else {
             holder = (SuperLvHolder) retrunView.getTag();
             if(!(holder.type == type)){
-                holder = generateNewHolder(context,type,clazz);
+                holder = generateNewHolder(context,type,clazz,parent);
                 holder.setType(type);
                 retrunView = holder.rootView;
                 retrunView.setTag(holder);
@@ -135,7 +134,7 @@ public abstract class SuperLvAdapter<A extends Context> extends BaseAdapter impl
     }
 
 
-    protected abstract SuperLvHolder generateNewHolder(A context, int itemViewType,Class beanClass);
+    protected abstract SuperLvHolder generateNewHolder(A context, int itemViewType,Class beanClass,ViewGroup parent);
 
     @Override
     public void refresh() {

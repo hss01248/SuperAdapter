@@ -3,6 +3,7 @@ package com.hss01248.superadapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.ViewGroup;
 
 import com.hss01248.adapter.SuperLvAdapter;
 import com.hss01248.adapter.SuperLvHolder;
@@ -58,14 +59,14 @@ public class LinearListLayoutActy extends Activity {
 
         SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
             @Override
-            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType, Class beanClass) {
+            protected SuperLvHolder generateNewHolder(Activity context, int itemViewType, Class beanClass, ViewGroup parent) {
                 XLogUtil.i("generateNewHolder---"+(i++));
                 if(beanClass == Bean1.class){
-                    return new Holder1(context);
+                    return new Holder1(context,parent);
                 }else if(beanClass == Bean2.class){
-                    return new Holder2(context);
+                    return new Holder2(context,parent);
                 }
-                return new Holder1(context);
+                return new Holder1(context,parent);
             }
         };
 

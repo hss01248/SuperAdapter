@@ -122,7 +122,7 @@ public abstract class SuperViewGroupSingleAdapter<A extends Context> implements 
             //有数据,但是没有view
             for (int i = 0; i < dataCount; i++) {
                 Object obj = datas.get(i);
-                CommonViewHolder viewHolder = generateNewHolder(context, i, 0, null);
+                CommonViewHolder viewHolder = generateNewHolder(context, i, 0, null,viewGroup);
                 viewHolder.rootView.setTag(viewHolder);
                 setItemClickListener(obj, viewHolder, i);
                 viewHolder.assingDatasAndEvents(context, obj, i,extra,i==dataCount-1,datas,this);
@@ -152,7 +152,7 @@ public abstract class SuperViewGroupSingleAdapter<A extends Context> implements 
                     setItemClickListener(obj, viewHolder, i);
                     viewHolder.assingDatasAndEvents(context, obj,i,extra,i==dataCount-1,datas,this);
                 } else {
-                    CommonViewHolder viewHolder = generateNewHolder(context, i, 0, null);
+                    CommonViewHolder viewHolder = generateNewHolder(context, i, 0, null,viewGroup);
                     viewHolder.rootView.setTag(viewHolder);
                     setItemClickListener(obj, viewHolder, i);
                     viewHolder.assingDatasAndEvents(context, obj, i,extra,i==dataCount-1,datas,this);
