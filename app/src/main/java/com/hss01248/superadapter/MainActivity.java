@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.hss01248.adapter.SuperRvAdapter;
@@ -58,12 +59,12 @@ public class MainActivity extends Activity {
         datas.add("eighteen");
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
-
+        try {
         mAdapter = new SuperRvAdapter<MainActivity>( MainActivity.this) {
 
             @Override
-            protected SuperRvHolder generateCoustomViewHolder(ViewGroup parent, int viewType) {
-                XLogUtil.i("generateCoustomViewHolder--"+i);
+            protected SuperRvHolder generateCustomViewHolder(ViewGroup parent, int viewType) {
+                XLogUtil.i("generateCustomViewHolder--"+i);
                 i++;
                 if(viewType == String.class.hashCode()){
                     return new SuperRvHolder<String,MainActivity>(inflate(parent,R.layout.holder_demo_list_2)) {//匿名子类
@@ -74,7 +75,6 @@ public class MainActivity extends Activity {
 
                         @Override
                         public void assignDatasAndEvents(MainActivity context, String data) {
-                            super.assignDatasAndEvents(context, data);
                             ((TextView)(rootView.findViewById(R.id.tv_text))).setText(data+" string type");
                         }
                     };
@@ -92,9 +92,32 @@ public class MainActivity extends Activity {
             }
         };
 
-        try {
-            mAdapter.addAll(datas);
+            mAdapter.refresh(datas);
             mRecyclerView.setAdapter(mAdapter);
+
+            Button headerView = new Button(this);
+            headerView.setText("headerview");
+            mAdapter.addHeader(headerView);
+            Button headerView2 = new Button(this);
+            headerView2.setText("headerview2");
+            mAdapter.addHeader(headerView2);
+
+            Button foot = new Button(this);
+            foot.setText("footview");
+            mAdapter.addFooter(foot);
+
+            Button foot2 = new Button(this);
+            foot2.setText("footview2");
+            mAdapter.addFooter(foot2);
+
+
+
+
+
+
+
+
+
 
         }catch (Throwable e){
             e.printStackTrace();

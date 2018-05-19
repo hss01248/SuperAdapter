@@ -55,9 +55,7 @@ public abstract  class SuperRvHolder<T,A extends Context> extends RecyclerView.V
      * @param context
      * @param data
      */
-    public    void assignDatasAndEvents(A context, T data){
-
-    }
+    public  abstract   void assignDatasAndEvents(A context, T data);
 
     @Override
     public void onViewAttachedToWindow(View v) {

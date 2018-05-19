@@ -52,7 +52,7 @@ public class ListActivity extends Activity{
         SuperLvAdapter adapter = new SuperLvAdapter<Activity>(this) {
             @Override
             protected SuperLvHolder generateNewHolder(Activity context, int itemViewType, Class clazz, ViewGroup parent) {
-                XLogUtil.i("generateCoustomViewHolder--"+i);
+                XLogUtil.i("generateCustomViewHolder--"+i);
                 i++;
                 if(clazz == Bean1.class){
                     return new Holder1(context,parent);

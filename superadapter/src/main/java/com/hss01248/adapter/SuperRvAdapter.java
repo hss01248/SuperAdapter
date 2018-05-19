@@ -3,6 +3,7 @@ package com.hss01248.adapter;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,11 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
     boolean isListViewFling;
     public static final int TYPE_NULL = 1;
 
+    private List<SuperRvHolder> headers;
+    private List<SuperRvHolder> footers;
+    private List headerBeans;
+    private List footerBeans;
+
     public boolean isListViewFling() {
         return isListViewFling;
     }
@@ -35,8 +41,40 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
 
         this.datas = new ArrayList();
         this.context = context;
+        headers = new ArrayList<>();
+        footers = new ArrayList<>();
+        headerBeans = new ArrayList<>();
+        footerBeans = new ArrayList<>();
+        datas.addAll(headerBeans);
+        datas.addAll(footerBeans);
+    }
 
+    public void addHeader(View  headView){
+        SuperRvHolder holder = new SuperRvHolder(headView) {
+            @Override
+            public void assignDatasAndEvents(Context context, Object data) {
 
+            }
+        };
+        headers.add(holder);
+        MyRcvHeaderClazz clazz = new MyRcvHeaderClazz();
+        headerBeans.add(clazz);
+        datas.add(headerBeans.size()-1,clazz);
+        notifyDataSetChanged();
+    }
+
+    public void addFooter(View  footerView){
+        SuperRvHolder holder = new SuperRvHolder(footerView) {
+            @Override
+            public void assignDatasAndEvents(Context context, Object data) {
+
+            }
+        };
+        footers.add(holder);
+        MyRcvFooterClazz clazz = new MyRcvFooterClazz();
+        footerBeans.add(clazz);
+        datas.add(clazz);
+        notifyDataSetChanged();
     }
 
     /**
@@ -53,13 +91,26 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
 
     @Override
     public SuperRvHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return generateCoustomViewHolder(parent,viewType);
+        Log.d("adapter","viewType:"+viewType);
+        if(viewType>=0 && viewType<datas.size()){
+            if(viewType<headerBeans.size()){
+                return headers.get(viewType);
+            }else {
+                int footPosition = viewType - (datas.size() -footerBeans.size());
+                return footers.get(footPosition);
+            }
+        }
+        return generateCustomViewHolder(parent,viewType);
     }
 
-    protected abstract SuperRvHolder generateCoustomViewHolder(ViewGroup parent, int viewType);
+    protected abstract SuperRvHolder generateCustomViewHolder(ViewGroup parent, int viewType);
 
     @Override
     public void onBindViewHolder(SuperRvHolder holder, int position) {
+        if(getItemViewType(position) == position){
+            return;
+        }
+
         holder.assignDatasAndEvents(context,datas.get(position),position,position == getItemCount() -1,isListViewFling,datas,this);
     }
 
@@ -68,6 +119,14 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
         Object obj = datas.get(position);
         if(obj ==null){
             return TYPE_NULL;
+        }
+        if(obj.getClass() == MyRcvHeaderClazz.class ){
+            return position;
+
+        }
+        if(obj.getClass() == MyRcvFooterClazz.class ){
+            return  position;
+
         }
         return obj.getClass().hashCode();
     }
@@ -79,11 +138,18 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
 
     @Override
     public void refresh(List newData) {
+
+
         if (newData == null){
             datas.clear();
             notifyDataSetChanged();
             return;
         }
+        newData.addAll(0,headerBeans);
+        newData.addAll(footerBeans);
+
+
+
         if (datas == null){
             datas = newData;
             notifyDataSetChanged();
@@ -99,13 +165,8 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
         if (newData == null){
             return;
         }
-        if (datas == null){
-            datas = newData;
-            notifyDataSetChanged();
-        }else {
-            datas.addAll(newData);
-            notifyDataSetChanged();
-        }
+
+        datas.addAll(datas.size()-footerBeans.size(),newData);
     }
 
     @Override
@@ -118,6 +179,7 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
 
     @Override
     public void delete(int position) {
+        position = position+headerBeans.size();
         if (datas != null && position < getItemCount()){
             datas.remove(position);
             notifyItemRemoved(position);
@@ -127,8 +189,8 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
     @Override
     public void add(Object object) {
         if (object != null){
-            datas.add(object);
-            notifyItemInserted(datas.size() -1);
+            datas.add(datas.size()-footerBeans.size(),object);
+            notifyItemInserted(datas.size() -footerBeans.size());
         }
 
     }
@@ -162,4 +224,10 @@ public  abstract   class SuperRvAdapter<A extends Context> extends RecyclerView.
 
 
     }*/
+    public class MyRcvHeaderClazz{
+
+    }
+    public class MyRcvFooterClazz{
+
+    }
 }
