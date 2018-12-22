@@ -10,10 +10,11 @@ import android.view.ViewGroup;
  * Created by Administrator on 2017/12/9.
  */
 
-public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnAttachStateChangeListener,ILifeCycle{
+public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnAttachStateChangeListener,ILifeCycle {
 
     public ViewGroup rootView;
     public A activity;
+     int position;
 
     public SuperPagerHolder(A context,ViewGroup parent){
         int layoutRes = setLayoutRes();
@@ -42,6 +43,11 @@ public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnA
 
 
     public  abstract void assingDatasAndEvents(A activity, @Nullable T bean, int position);
+
+    public   void assingDatasAndEventsWithPosition(A activity, @Nullable T bean, int position){
+        this.position = position;
+        this.assingDatasAndEvents(activity,bean,position);
+    }
 
     @Override
     public void onViewAttachedToWindow(View v) {
