@@ -39,7 +39,17 @@ public abstract class SuperViewGroupSingleAdapter<A extends Context> implements 
         this.viewGroup = viewGroup;
     }
 
-
+    public void setSelectedAsRadioGroup(int selectedPosition){
+        int count = viewGroup.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View view = viewGroup.getChildAt(i);
+            if( i == selectedPosition){
+                view.setSelected(true);
+            }else {
+                view.setSelected(false);
+            }
+        }
+    }
     //@Override
     public void refresh() {
         notifyDataSetChanged();

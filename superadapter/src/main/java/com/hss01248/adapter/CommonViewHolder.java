@@ -16,14 +16,16 @@ public abstract class CommonViewHolder<T,A extends Context> implements  View.OnA
 
     public View rootView;
     public A activity;
+    protected ViewGroup parent;
 
-    public CommonViewHolder(A context,ViewGroup viewGroup){
+    public CommonViewHolder(A context,ViewGroup parent){
         this.activity = context;
         int layoutRes = setLayoutRes();
+        this.parent = parent;
         if(layoutRes !=0){
             LayoutInflater factory = LayoutInflater.from(context);
             //通过这个方法让layoutres里的布局参数设置有效
-            rootView = factory.inflate(layoutRes,viewGroup,false);
+            rootView = factory.inflate(layoutRes,parent,false);
         }else {
             rootView = setRootView(context);
             if(rootView ==null){

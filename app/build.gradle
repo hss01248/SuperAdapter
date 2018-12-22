@@ -29,6 +29,6 @@ dependencies {
     compile 'com.github.hss01248:ListViewLinearLayout:1.0.0'
     compile 'com.github.hss01248:Mylog:1.0.1'
     compile 'com.alibaba:fastjson:1.1.54.android'
-
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
     //compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
 }

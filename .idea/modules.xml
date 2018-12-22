@@ -4,10 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SuperAdapter.iml" filepath="$PROJECT_DIR$/SuperAdapter.iml" />
       <module fileurl="file://G:\projects\android\hss01248\SuperAdapter\SuperAdapter.iml" filepath="G:\projects\android\hss01248\SuperAdapter\SuperAdapter.iml" />
+      <module fileurl="file://D:\projects\android\hss01248\SuperAdapter\SuperAdapter.iml" filepath="D:\projects\android\hss01248\SuperAdapter\SuperAdapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://G:\projects\android\hss01248\SuperAdapter\app\app.iml" filepath="G:\projects\android\hss01248\SuperAdapter\app\app.iml" />
+      <module fileurl="file://D:\projects\android\hss01248\SuperAdapter\app\app.iml" filepath="D:\projects\android\hss01248\SuperAdapter\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/superadapter/superadapter.iml" filepath="$PROJECT_DIR$/superadapter/superadapter.iml" />
       <module fileurl="file://G:\projects\android\hss01248\SuperAdapter\superadapter\superadapter.iml" filepath="G:\projects\android\hss01248\SuperAdapter\superadapter\superadapter.iml" />
+      <module fileurl="file://D:\projects\android\hss01248\SuperAdapter\superadapter\superadapter.iml" filepath="D:\projects\android\hss01248\SuperAdapter\superadapter\superadapter.iml" />
     </modules>
   </component>
 </project>
