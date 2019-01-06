@@ -17,8 +17,8 @@ public abstract class SuperPagerHolder<T,A extends Context> implements  View.OnA
      int position;
 
     public SuperPagerHolder(A context,ViewGroup parent){
-        int layoutRes = setLayoutRes();
         this.activity = context;
+        int layoutRes = setLayoutRes();
         if(layoutRes !=0){
             LayoutInflater factory = LayoutInflater.from(context);
             //通过这个方法让layoutres里的布局参数设置有效
