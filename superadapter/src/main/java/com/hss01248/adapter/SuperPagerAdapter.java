@@ -16,7 +16,6 @@ import java.util.List;
 public abstract class SuperPagerAdapter<A extends Context> extends PagerAdapter implements Refreshable,ILifeCycle{
 
     List datas = new ArrayList();
-    List<SuperPagerHolder> mPagerHolders = new ArrayList<>();
     A context;
 
     public SuperPagerAdapter(A context){
@@ -37,18 +36,7 @@ public abstract class SuperPagerAdapter<A extends Context> extends PagerAdapter 
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        SuperPagerHolder holder = null;
-        if(position >= mPagerHolders.size()){
-            holder = generateNewHolder(context,container,position);
-            mPagerHolders.add(holder);
-        }else {
-            holder = mPagerHolders.get(position);
-        }
-        if(holder == null){
-            holder = generateNewHolder(context,container,position);
-            mPagerHolders.add(holder);
-        }
-        holder.assingDatasAndEvents(context,datas.get(position),position);
+        SuperPagerHolder holder = generateNewHolder(context,container,position);
         container.addView(holder.rootView);
         return holder.rootView;
     }
